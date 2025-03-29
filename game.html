@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamersHub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+        }
+        #bgVideo {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            transform: translate(-50%, -50%); /* Centers the video */
+            z-index: -1;
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background: rgba(0, 0, 0, 0.6);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+        .nav-links li {
+            margin: 0 15px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        .nav-links a:hover {
+            color: yellow;
+        }
+        .auth-buttons {
+            display: flex;
+        }
+        .auth-buttons button {
+            margin-left: 10px;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        .signup {
+            background-color: #ffcc00;
+        }
+        .login {
+            background-color: #007bff;
+            color: white;
+        }
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            margin-top: 60px; /* Keep content below navbar */
+        }
+        .hero h1 {
+            font-size: 50px;
+            font-weight: bold;
+        }
+        .hero p {
+            font-size: 20px;
+            margin: 20px 0;
+        }
+        .cta-buttons {
+            margin-top: 20px;
+        }
+        .cta-buttons button {
+            padding: 12px 24px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .get-started {
+            background-color: #ffcc00;
+        }
+        .learn-more {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        /* Tournament Section */
+        .tournament-section {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 50px auto;
+            flex-wrap: wrap; /* Wrap if screen is narrow */
+            max-width: 90%;
+        }
+        .tournament-card {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-align: left;
+        }
+        .tournament-card img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .tournament-card h2 {
+            margin: 10px 0;
+            font-size: 24px;
+        }
+        .tournament-card p {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        .join-button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 15px;
+            width: 100%;
+        }
+        .tag {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+        /* Dashboard Section */
+        .dashboard {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            margin: 50px auto;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .dashboard h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            width: 200px;
+            margin: 10px;
+        }
+        .stat-item h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .stat-item p {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <body>
+
+        <video autoplay loop muted playsinline id="bgVideo">
+            <source src="output2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    
+        
+    
+    </body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector(".signup").addEventListener("click", function () {
+                const username = prompt("Enter username:");
+                const password = prompt("Enter password:");
+
+                fetch("http://localhost:3000/signup", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ username, password })
+                })
+                .then(response => response.json())
+                .then(data => alert(data.message))
+                .catch(error => console.error("Error:", error));
+            });
+
+            document.querySelector(".login").addEventListener("click", function () {
+                const username = prompt("Enter username:");
+                const password = prompt("Enter password:");
+
+                fetch("http://localhost:3000/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ username, password })
+                })
+                .then(response => response.json())
+                .then(data => alert(data.message))
+                .catch(error => console.error("Error:", error));
+            });
+        });
+    </script>
+    
+   
+    
+    
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="logo">GamersHub</div>
+    <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="https://playvalorant.com/en-us/agents/" target="_blank">About</a></li>
+        <li><a href="#">Tournaments</a></li>
+        <li><a href="#">Leaderboards</a></li>
+    </ul>
+    <div class="auth-buttons">
+        <button class="signup" onclick="location.href='signin.html'">Sign Up</button>
+        <button class="login" onclick="location.href='signin.html'">Login</button>
+    </div>
+</nav>
+
+
+
+   <!-- Hero Section -->
+<div class="hero">
+    <h1>Welcome to <span style="color: yellow;">GamersHub</span></h1>
+    <p>Join the ultimate gaming community where passion meets competition. <br> 
+       Connect, compete, and conquer with gamers worldwide.</p>
+    <div class="cta-buttons">
+        <button class="get-started" onclick="redirectToValorant()">Get Started →</button>
+        <button class="learn-more" onclick="showLearnMore()">Learn More ⓘ</button>
+    </div>
+</div>
+
+<script>
+    function redirectToValorant() {
+        window.location.href = "https://playvalorant.com/en-us/platform-selection/";
+    }
+
+    function showLearnMore() {
+        alert("GamersHub is a platform where players from around the world connect, compete in tournaments, and explore gaming communities.");
+    }
+</script>
+
+  <!-- Tournament & Upcoming Events Section -->
+<div class="tournament-section" style="display: flex; align-items: center; justify-content: center; gap: 20px; padding: 50px; background-color: #121212; color: white; flex-wrap: wrap;">
+
+    <!-- Ongoing Tournament 1: Valorant Championship -->
+    <div class="tournament-card" style="flex: 1; max-width: 45%; text-align: center;">
+        <img src="valorant-logo-characters-red-pink-PC.jpg" alt="Valorant Championship" style="width: 100%; height: auto; max-height: 300px; border-radius: 10px;">
+        <h2>Valorant Challengers EMEA Stage 1</h2>
+        <p>Join the ultimate Valorant competition and showcase your skills.</p>
+        <p><strong>Ongoing:</strong> March 3 – March 9, 2025</p>
+        <p><strong>Prize Pool:</strong> TBA</p>
+        <button class="join-button" onclick="window.open('https://authenticate.riotgames.com/')">
+            Join Tournament
+        </button>
+    </div>
+
+    <!-- Ongoing Tournament 2: Bangkok Masters -->
+    <div class="tournament-card" style="flex: 1; max-width: 45%; text-align: center;">
+        <img src="valorant-tournaments.webp" alt="Bangkok Masters" style="width: 100%; height: auto; max-height: 300px; border-radius: 10px;">
+        <h2>2025 Valorant Champions Tour: Bangkok Masters</h2>
+        <p>A fierce battle among top teams in Thailand.</p>
+        <p><strong>Ongoing:</strong> February 20 – March 2, 2025</p>
+        <p><strong>Prize Pool:</strong> $250,000</p>
+        <button class="join-button" onclick="window.open('https://authenticate.riotgames.com/')">
+            Join Tournament
+        </button>
+    </div>
+
+    <!-- Upcoming Tournament 1: Masters 2 -->
+    <div class="tournament-card" style="flex: 1; max-width: 45%; text-align: center;">
+        <img src="0c67438c8b3a418b5ca28f9f234506745493ae42-854x484.avif" alt="Valorant Masters 2" style="width: 100%; height: auto; max-height: 300px; border-radius: 10px;">
+        <h2>Valorant Champions Tour: Masters 2</h2>
+        <p>The biggest event of June 2025.</p>
+        <p><strong>Upcoming:</strong> June 2025</p>
+        <p><strong>Location:</strong> Toronto, Canada</p>
+    </div>
+
+    <!-- Upcoming Tournament 2: Valorant Champions -->
+    <div class="tournament-card" style="flex: 1; max-width: 45%; text-align: center;">
+        <img src="2b9112977cbc63c60d649c663c032df282647538-1920x1080.webp" alt="Valorant Champions 2025" style="width: 100%; height: auto; max-height: 300px; border-radius: 10px;">
+        <h2>Valorant Champions 2025</h2>
+        <p>The ultimate Valorant World Championship event.</p>
+        <p><strong>Upcoming:</strong> September 2025</p>
+        <p><strong>Location:</strong> Paris, France</p>
+    </div>
+
+</div>
+
+
+
+
+        </section>
+        
+        
+        
+
+    <!-- Dashboard Section -->
+    <div class="dashboard">
+        <h2>Dashboard</h2>
+        <div class="stats">
+            <div class="stat-item">
+                <h3>Score</h3>
+                <p>1200</p>
+            </div>
+            <div class="stat-item">
+                <h3>Rank</h3>
+                <p>Gold</p>
+            </div>
+            <div class="stat-item">
+                <h3>Performance</h3>
+                <p>Excellent</p>
+            </div>
+        </div>
+    </div>
+<!-- Footer Section -->
+<footer style="background-color: #1e293b; color: white; padding: 40px; text-align: left;">
+    <div style="display: flex; justify-content: space-around; flex-wrap: wrap; max-width: 1200px; margin: auto;">
+        
+        <!-- Quick Links -->
+        <div>
+            <h3>Quick Links</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li><a href="#" style="color: white; text-decoration: none;">Home</a></li>
+                <li><a href="#" style="color: white; text-decoration: none;">About Us</a></li>
+                <li><a href="#" style="color: white; text-decoration: none;">Tournaments</a></li>
+                <li><a href="#" style="color: white; text-decoration: none;">Leaderboards</a></li>
+            </ul>
+        </div>
+
+        <!-- Account -->
+        <div>
+            <h3>Account</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li><a href="#" style="color: white; text-decoration: none;">Register</a></li>
+                <li><a href="#" style="color: white; text-decoration: none;">Dashboard</a></li>
+            </ul>
+        </div>
+
+        <!-- Social Media -->
+        <div>
+            <h3>Connect With Us</h3>
+            <div style="display: flex; gap: 10px;">
+                <a href="#"><img src="Facebook-Logosu.png" alt="Facebook" style="width: 32px;"></a>
+                <a href="#"><img src="images.png" alt="Twitter" style="width: 24px;"></a>
+                <a href="#"><img src="Instagram_logo_2016.svg.webp" alt="Instagram" style="width: 24px;"></a>
+            </div>
+        </div>
+
+        <!-- Newsletter -->
+        <div>
+            <h3>Newsletter</h3>
+            <input type="email" placeholder="Enter your email" style="padding: 8px; width: 200px; border-radius: 5px; border: none;">
+            <button style="background-color: #007bff; color: white; padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px;">
+                Subscribe
+            </button>
+        </div>
+    </div>
+</footer>
+<a href="server.js"></a>
+    <a href="signin.html"></a>
+    </body>
+</html> 

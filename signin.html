@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameHub - Sign In</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            height: 100vh;
+        }
+        .left-section {
+            flex: 1;
+            background: url('2b9112977cbc63c60d649c663c032df282647538-1920x1080.webp') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+        }
+        .right-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .signin-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 350px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0073b1;
+            margin-bottom: 20px;
+        }
+        .signin-container h2 {
+            margin-bottom: 10px;
+        }
+        .signin-container p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .forgot-password {
+            display: block;
+            text-align: right;
+            font-size: 12px;
+            color: #0073b1;
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+        .signin-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0073b1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .or-section {
+            margin: 15px 0;
+            font-size: 14px;
+            color: #666;
+        }
+        .social-button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .google-button {
+            background-color: white;
+            border: 1px solid #ccc;
+        }
+        .google-button img {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+        .apple-button {
+            background-color: black;
+            color: white;
+        }
+        .signup-link {
+            font-size: 14px;
+            margin-top: 15px;
+        }
+        .signup-link a {
+            color: #0073b1;
+            text-decoration: none;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            document.querySelector(".signin-button").addEventListener("click", function () {
+                const email = document.querySelector("#email").value;
+                const password = document.querySelector("#password").value;
+
+                fetch("http://localhost:3000/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        localStorage.setItem("isLoggedIn", "true"); // Store login status
+                        window.location.href = "game.html"; // Redirect after login
+                    } else {
+                        alert("Invalid credentials");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+            });
+        };
+    </script>
+</head>
+<body>
+    <div class="left-section">GameHub</div>
+    <div class="right-section">
+        <div class="signin-container">
+            <h2>Sign in</h2>
+            <p>Stay updated on your gaming world</p>
+            
+            <input type="text" id="email" class="input-field" placeholder="Email or Phone">
+            <input type="password" id="password" class="input-field" placeholder="Password">
+            
+            <a href="#" class="forgot-password">Forgot password?</a>
+            <button class="signin-button">Sign in</button>
+            
+            <div class="or-section">or</div>
+            
+            <button class="social-button google-button">
+                <img src="channels4_profile.jpg" alt="Google Logo">Sign in with Google
+            </button>
+            <button class="social-button apple-button">Sign in with Apple</button>
+            
+            <p class="signup-link">New to GameHub? <a href="#">Join now</a></p>
+        </div>
+    </div>
+    <a href="game.html"></a>
+</body>
+</html>
