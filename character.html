@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Character</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1c1c1c, #0a0a0a);
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            text-align: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .character-card {
+            width: 250px;
+            background: #1e1e1e;
+            border-radius: 15px;
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+        .character-card:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.8);
+        }
+        .character-card:hover .character-description {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .character-image {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .character-name {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: cyan;
+        }
+        .character-description {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%, 10px);
+            width: 90%;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            font-size: 14px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Choose Your Character</h1>
+    <div class="container">
+        <div class="character-card" onclick="selectCharacter('Astral Yogi')">
+            <img class="character-image" src="as.png" alt="Astral Yogi">
+            <div class="character-name">Astral Yogi</div>
+            <div class="character-description">A mystical warrior harnessing cosmic energy.</div>
+        </div>
+        <div class="character-card" onclick="selectCharacter('Wind Dancer')">
+            <img class="character-image" src="w.png" alt="Wind Dancer">
+            <div class="character-name">Wind Dancer</div>
+            <div class="character-description">A swift ninja who moves like the wind.</div>
+        </div>
+        <div class="character-card" onclick="selectCharacter('Cyber Samurai')">
+            <img class="character-image" src="s.png" alt="Cyber Samurai">
+            <div class="character-name">Cyber Samurai</div>
+            <div class="character-description">A futuristic warrior blending steel and technology.</div>
+        </div>
+        <div class="character-card" onclick="selectCharacter('Mystic Sage')">
+            <img class="character-image" src="character_2.jpg" alt="Mystic Sage">
+            <div class="character-name">Mystic Sage</div>
+            <div class="character-description">A wise master wielding ancient magic.</div>
+        </div>
+    </div>
+
+    <audio id="selectSound" src="select.mp3"></audio>
+
+    <script>
+        function selectCharacter(name) {
+            document.getElementById('selectSound').play();
+            alert("You selected " + name + "!");
+        }
+    </script>
+</body>
+</html>
