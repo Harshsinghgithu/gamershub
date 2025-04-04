@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Gamers Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Orbitron', sans-serif;
+            background: url('valorant-logo-characters-red-pink-PC.jpg') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+        }
+        .about-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+        }
+        .title {
+            font-size: 48px;
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: glow 1.5s infinite alternate;
+        }
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px cyan, 0 0 20px cyan; }
+            100% { text-shadow: 0 0 20px cyan, 0 0 40px cyan; }
+        }
+        .description {
+            max-width: 800px;
+            font-size: 24px;
+            line-height: 1.8;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="about-container">
+        <h1 class="title">Welcome to Gamers Hub</h1>
+        <p class="description">Gamers Hub is the ultimate community for gaming enthusiasts. From esports tournaments to the latest game reviews, we bring the gaming world to your fingertips. Join us in our journey to level up the gaming experience! Whether you're a professional gamer, a casual player, or just someone who loves gaming culture, Gamers Hub is your destination. Connect with like-minded players, explore gaming news, and immerse yourself in a world of endless possibilities. Let’s build the ultimate gaming universe together!</p>
+    </div>
+</body>
+</html>
