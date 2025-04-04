@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        window.prompt = function() {
+            console.log("Blocked a prompt from showing.");
+            return null; // Prevents any prompt from appearing
+        };
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GamersHub</title>
@@ -257,9 +264,9 @@
     <div class="logo">GamersHub</div>
     <ul class="nav-links">
         <li><a href="#">Home</a></li>
-        <li><a href="https://playvalorant.com/en-us/agents/" target="_blank">About</a></li>
+        <li><a href="about.html" target="_blank">About</a></li>
         <li><a href="#">Tournaments</a></li>
-        <li><a href="#">Leaderboards</a></li>
+        <li><a href="lead.html">Leaderboards</a></li>
     </ul>
     <div class="auth-buttons">
         <button class="signup" onclick="location.href='signin.html'">Sign Up</button>
@@ -282,7 +289,7 @@
 
 <script>
     function redirectToValorant() {
-        window.location.href = "https://playvalorant.com/en-us/platform-selection/";
+        window.location.href = "character.html"; // Redirect to character selection page
     }
 
     function showLearnMore() {
@@ -290,36 +297,31 @@
     }
 </script>
 
-  <!-- Tournament & Upcoming Events Section -->
-<div class="tournament-section" style="display: flex; align-items: center; justify-content: center; gap: 20px; padding: 50px; background-color: #121212; color: white; flex-wrap: wrap;">
-
+ <!-- Tournament & Upcoming Events Section -->
+<div class="tournament-section">
     <!-- Ongoing Tournament 1: Valorant Championship -->
-    <div class="tournament-card" style="flex: 1; max-width: 45%; text-align: center;">
-        <img src="valorant-logo-characters-red-pink-PC.jpg" alt="Valorant Championship" style="width: 100%; height: auto; max-height: 300px; border-radius: 10px;">
+    <div class="tournament-card">
+        <img src="valorant-logo-characters-red-pink-PC.jpg" alt="Valorant Championship">
         <h2>Valorant Challengers EMEA Stage 1</h2>
         <p>Join the ultimate Valorant competition and showcase your skills.</p>
         <p><strong>Ongoing:</strong> March 3 – March 9, 2025</p>
         <p><strong>Prize Pool:</strong> TBA</p>
-        <button class="join-button" onclick="window.open('https://authenticate.riotgames.com/')">
-            Join Tournament
-        </button>
+        <button class="join-button">Join Tournament</button>
     </div>
 
     <!-- Ongoing Tournament 2: Bangkok Masters -->
-    <div class="tournament-card" style="flex: 1; max-width: 45%; text-align: center;">
-        <img src="valorant-tournaments.webp" alt="Bangkok Masters" style="width: 100%; height: auto; max-height: 300px; border-radius: 10px;">
+    <div class="tournament-card">
+        <img src="valorant-tournaments.webp" alt="Bangkok Masters">
         <h2>2025 Valorant Champions Tour: Bangkok Masters</h2>
         <p>A fierce battle among top teams in Thailand.</p>
         <p><strong>Ongoing:</strong> February 20 – March 2, 2025</p>
         <p><strong>Prize Pool:</strong> $250,000</p>
-        <button class="join-button" onclick="window.open('https://authenticate.riotgames.com/')">
-            Join Tournament
-        </button>
+        <button class="join-button">Join Tournament</button>
     </div>
 
     <!-- Upcoming Tournament 1: Masters 2 -->
-    <div class="tournament-card" style="flex: 1; max-width: 45%; text-align: center;">
-        <img src="0c67438c8b3a418b5ca28f9f234506745493ae42-854x484.avif" alt="Valorant Masters 2" style="width: 100%; height: auto; max-height: 300px; border-radius: 10px;">
+    <div class="tournament-card">
+        <img src="0c67438c8b3a418b5ca28f9f234506745493ae42-854x484.avif" alt="Valorant Masters 2">
         <h2>Valorant Champions Tour: Masters 2</h2>
         <p>The biggest event of June 2025.</p>
         <p><strong>Upcoming:</strong> June 2025</p>
@@ -327,13 +329,148 @@
     </div>
 
     <!-- Upcoming Tournament 2: Valorant Champions -->
-    <div class="tournament-card" style="flex: 1; max-width: 45%; text-align: center;">
-        <img src="2b9112977cbc63c60d649c663c032df282647538-1920x1080.webp" alt="Valorant Champions 2025" style="width: 100%; height: auto; max-height: 300px; border-radius: 10px;">
+    <div class="tournament-card">
+        <img src="2b9112977cbc63c60d649c663c032df282647538-1920x1080.webp" alt="Valorant Champions 2025">
         <h2>Valorant Champions 2025</h2>
         <p>The ultimate Valorant World Championship event.</p>
         <p><strong>Upcoming:</strong> September 2025</p>
         <p><strong>Location:</strong> Paris, France</p>
     </div>
+</div>
+
+<style>
+/* Section Styling */
+.tournament-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 50px;
+    background-color: #121212;
+    color: white;
+    flex-wrap: wrap;
+}
+
+/* Card Animation */
+.tournament-card {
+    flex: 1;
+    max-width: 45%;
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out, opacity 0.6s ease-in-out;
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover Glow Effect */
+.tournament-card::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    transform: rotate(30deg);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+.tournament-card:hover::before {
+    opacity: 1;
+}
+
+/* Image Styling */
+.tournament-card img {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    border-radius: 10px;
+}
+
+/* Hover Effect */
+.tournament-card:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Button Styling */
+.join-button {
+    background-color: #ff4655;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Button Hover Animation */
+.join-button:hover {
+    background-color: #d03040;
+    transform: scale(1.1);
+}
+
+/* Button Ripple Effect */
+.join-button::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -100%;
+    background: rgba(255, 255, 255, 0.3);
+    transition: left 0.3s ease-in-out;
+}
+.join-button:hover::after {
+    left: 100%;
+}
+
+/* Scroll Animation */
+@keyframes fadeZoomBounce {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+    50% {
+        opacity: 0.5;
+        transform: translateY(-10px) scale(1.02);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const cards = document.querySelectorAll(".tournament-card");
+
+    function revealCards() {
+        cards.forEach((card, index) => {
+            const cardPosition = card.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.3;
+
+            if (cardPosition < screenPosition) {
+                card.style.animation = `fadeZoomBounce 0.8s ease-in-out forwards ${index * 0.2}s`;
+            }
+        });
+    }
+
+    window.addEventListener("scroll", revealCards);
+    revealCards(); // Initial call
+});
+</script>
+
+
 
 </div>
 
@@ -341,11 +478,121 @@
 
 
         </section>
-        
-        
-        
+        <!-- Lobby Section -->
+<section class="lobby">
+    <h2>Game Lobby</h2>
+    <p>Join a lobby, chat with teammates, and prepare for battle!</p>
+    <div class="lobby-container">
+        <div class="lobby-room">
+            <h3>Lobby 1 - Valorant</h3>
+            <p>Players: 4/5</p>
+            <button class="join-lobby">Join</button>
+        </div>
+        <div class="lobby-room">
+            <h3>Lobby 2 - CS:GO</h3>
+            <p>Players: 3/5</p>
+            <button class="join-lobby">Join</button>
+        </div>
+        <div class="lobby-room">
+            <h3>Lobby 3 - Apex Legends</h3>
+            <p>Players: 5/5 (Full)</p>
+            <button class="join-lobby" disabled>Full</button>
+        </div>
+    </div>
+</section>
 
-    <!-- Dashboard Section -->
+<style>
+.lobby {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    text-align: center;
+    padding: 50px 0;
+}
+.lobby-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.lobby-room {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    width: 250px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+.lobby-room:hover {
+    transform: scale(1.05);
+}
+.join-lobby {
+    background-color: #ff4655;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.join-lobby:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+</style>
+<title>Live Stream - GamersHub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .livestream-section {
+            padding: 20px;
+        }
+        iframe {
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(255, 0, 0, 0.7);
+            max-width: 100%;
+            width: 800px;
+            height: 450px;
+        }
+        .countdown {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #ff4747;
+        }
+        .media-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        .media-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 580px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .media-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+        .media-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<!-- Dashboard Section -->
     <div class="dashboard">
         <h2>Dashboard</h2>
         <div class="stats">
@@ -372,9 +619,9 @@
             <h3>Quick Links</h3>
             <ul style="list-style: none; padding: 0;">
                 <li><a href="#" style="color: white; text-decoration: none;">Home</a></li>
-                <li><a href="#" style="color: white; text-decoration: none;">About Us</a></li>
+                <li><a href="about.html" style="color: white; text-decoration: none;">About Us</a></li>
                 <li><a href="#" style="color: white; text-decoration: none;">Tournaments</a></li>
-                <li><a href="#" style="color: white; text-decoration: none;">Leaderboards</a></li>
+                <li><a href="lead.html" style="color: white; text-decoration: none;">Leaderboards</a></li>
             </ul>
         </div>
 
