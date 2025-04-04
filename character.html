@@ -12,8 +12,7 @@
             font-family: 'Orbitron', sans-serif;
             text-align: center;
             padding: 20px;
-            overflow: hidden;
-        }
+            overflow-y: auto;}
         .container {
             display: flex;
             justify-content: center;
@@ -29,6 +28,7 @@
             transition: transform 0.3s, box-shadow 0.3s;
             cursor: pointer;
             position: relative;
+            min-height: 350px;
         }
         .character-card:hover {
             transform: scale(1.1);
@@ -41,7 +41,9 @@
         .character-image {
             width: 100%;
             border-radius: 10px;
-        }
+            object-fit: cover;
+            height: 300px;
+              }
         .character-name {
             margin-top: 10px;
             font-size: 18px;
@@ -91,6 +93,12 @@
             <div class="character-name">Mystic Sage</div>
             <div class="character-description">A wise master wielding ancient magic.</div>
         </div>
+        <div class="character-card" onclick="selectCharacter('marajaraja shiva')">
+            <img class="character-image" src="sh.webp" alt="marajaraja shiva">
+            <div class="character-name">Mahraja shiva</div>
+            <div class="character-description"> "Maratha Blitz" – Summons ghost warriors from forts to attack enemies.
+
+                .</div>
     </div>
 
     <audio id="selectSound" src="select.mp3"></audio>
