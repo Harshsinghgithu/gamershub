@@ -12,7 +12,49 @@
             font-family: 'Orbitron', sans-serif;
             text-align: center;
             padding: 20px;
-            overflow-y: auto;}
+            overflow-y: auto;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 30px;
+            border-radius: 10px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: cyan;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+        .nav-links li {
+            display: inline;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: cyan;
+        }
+        .auth-buttons button {
+            background: cyan;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background 0.3s;
+        }
+        .auth-buttons button:hover {
+            background: darkcyan;
+        }
         .container {
             display: flex;
             justify-content: center;
@@ -28,22 +70,22 @@
             transition: transform 0.3s, box-shadow 0.3s;
             cursor: pointer;
             position: relative;
-            min-height: 350px;
+            min-height: 450px;
+            text-align: center;
+            overflow: hidden;
+            animation: pulseGlow 2s infinite alternate;
         }
         .character-card:hover {
-            transform: scale(1.1);
-            box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.8);
-        }
-        .character-card:hover .character-description {
-            opacity: 1;
-            transform: translateY(0);
+            transform: scale(1.2) rotate(2deg);
+            box-shadow: 0px 0px 50px rgba(0, 255, 255, 1);
+            animation: shake 0.5s ease-in-out;
         }
         .character-image {
             width: 100%;
             border-radius: 10px;
             object-fit: cover;
             height: 300px;
-              }
+        }
         .character-name {
             margin-top: 10px;
             font-size: 18px;
@@ -51,26 +93,36 @@
             color: cyan;
         }
         .character-description {
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translate(-50%, 10px);
-            width: 90%;
-            background: rgba(0, 0, 0, 0.8);
+            margin-top: 10px;
+            background: rgba(0, 0, 0, 0.9);
             color: white;
             padding: 10px;
             border-radius: 10px;
-            opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
             font-size: 14px;
+            opacity: 1;
+            transition: transform 0.3s ease-in-out, opacity 0.3s;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .character-card:hover .character-description {
+            transform: scale(1.1);
+            opacity: 1;
         }
     </style>
 </head>
 <body>
+    <nav class="navbar">
+        <div class="logo">GamersHub</div>
+        <ul class="nav-links">
+            <li><a href="game.html">Home</a></li>
+            <li><a href="about.html" target="_blank">About</a></li>
+            <li><a href="#">Tournaments</a></li>
+            <li><a href="lead.html">Leaderboards</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <button onclick="location.href='signin.html'">Sign Up</button>
+            <button onclick="location.href='signin.html'">Login</button>
+        </div>
+    </nav>
+
     <h1>Choose Your Character</h1>
     <div class="container">
         <div class="character-card" onclick="selectCharacter('Astral Yogi')">
@@ -88,21 +140,28 @@
             <div class="character-name">Cyber Samurai</div>
             <div class="character-description">A futuristic warrior blending steel and technology.</div>
         </div>
+        <div class="character-card" onclick="selectCharacter('Maharaja Shiva')">
+            <img class="character-image" src="sh.webp" alt="Maharaja Shiva">
+            <div class="character-name">Maharaja Shiva</div>
+            <div class="character-description">Summons ghost warriors from forts to attack enemies.</div>
+        </div>
+        <div class="character-card" onclick="selectCharacter('Bhairava')">
+            <img class="character-image" src="Untitled design.png" alt="Bhairava">
+            <div class="character-name">Bhairava</div>
+            <div class="character-description">A warrior monk infused with divine power.</div>
+        </div>
+        <div class="character-card" onclick="selectCharacter('Kshatriya')">
+            <img class="character-image" src="ks.png" alt="Kshatriya">
+            <div class="character-name">Kshatriya</div>
+            <div class="character-description">A futuristic soldier protecting his homeland.</div>
+        </div>
         <div class="character-card" onclick="selectCharacter('Mystic Sage')">
             <img class="character-image" src="character_2.jpg" alt="Mystic Sage">
             <div class="character-name">Mystic Sage</div>
             <div class="character-description">A wise master wielding ancient magic.</div>
         </div>
-        <div class="character-card" onclick="selectCharacter('marajaraja shiva')">
-            <img class="character-image" src="sh.webp" alt="marajaraja shiva">
-            <div class="character-name">Mahraja shiva</div>
-            <div class="character-description"> "Maratha Blitz" – Summons ghost warriors from forts to attack enemies.
-
-                .</div>
     </div>
-
     <audio id="selectSound" src="select.mp3"></audio>
-
     <script>
         function selectCharacter(name) {
             document.getElementById('selectSound').play();
